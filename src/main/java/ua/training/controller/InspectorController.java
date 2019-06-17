@@ -51,12 +51,10 @@ public class InspectorController {
     @GetMapping("/mods/{report}")
     public String reportMods(
             @PathVariable Report report,
-//            @RequestParam(required = false) Mod mod,
             Model model
     ) {
 
         model.addAttribute("mods", report.getMods());
-//        model.addAttribute("mod", mod);
 
         return "client/reportMods";
     }

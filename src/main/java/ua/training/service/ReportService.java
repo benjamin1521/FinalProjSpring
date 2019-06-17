@@ -37,6 +37,7 @@ public class ReportService {
         return list.get(new Random().nextInt(list.size()));
     }
 
+    @Transactional
     public Report addReport(User user, String name, String comment) {
 
         Report report = Report.builder()

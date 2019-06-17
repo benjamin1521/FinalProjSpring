@@ -4,23 +4,24 @@
 <@c.page>
 
     <div class="card my-3">
-    <#list mods as mod>
+        <#list mods as mod>
 
-        <div class="container-fluid">
-            <li class="list-group-item">
-                <#if mod.comment??>
-                    <span>${mod.comment}</span>
-                </#if>
-                <div class="card-footer text-muted">
-                    <span>${mod.userId.username}</span>
-                    <span>${mod.date}</span>
-                    <i>${mod.action}</i>
-                </div>
-            </li>
-        </div>
-    <#else>
-        ${prp.getMessage("text.nomods")}
-    </#list>
+            <div class="container-fluid">
+                <li class="list-group-item">
+                    <#if mod.comment??>
+                        <span>${mod.comment}</span>
+                    </#if>
+                    <div class="card-footer text-muted">
+                        <span>${mod.userId.username}</span>
+                        <span>${mod.date}</span>
+                        <i>${mod.action}</i>
+                    </div>
+                </li>
+            </div>
+        <#else>
+            ${prp.getMessage("text.nomods")}
+        </#list>
+    </div>
 
     <div class="card my-3">
         <div class="m-2">

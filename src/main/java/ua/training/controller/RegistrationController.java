@@ -35,31 +35,30 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(
-//            @RequestParam("password2") String passwordConfirm,
+            @RequestParam("password2") String passwordConfirm,
             @Valid User user,
             BindingResult bindingResult,
             Model model
 
     ) {
 
-//        boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
-
-//        if (isConfirmEmpty) {
-//            model.addAttribute("password2Error", "Password confirmation cannot be empty");
-//        }
-//
-//        if (user.getPassword() != null && !user.getPassword().equals(passwordConfirm)) {
-//            model.addAttribute("passwordError", "Passwords are different!");
-//        }
-
-        if (/*isConfirmEmpty || */bindingResult.hasErrors()) {
+        boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
+        boolean isMatch = user.getPassword() != null && !user.getPassword().equals(passwordConfirm);
+        boolean isUsername = user.getUsername() != null;
+        if (isConfirmEmpty) {
+            model.addAttribute("password2Error", "Password confirmation cannot be empty");
+        }
+        if (isMatch) {
+            model.addAttribute("passwordError", "Passwords are different!");
+        }
+        if (isUsername) {
+            model.addAttribute("usernameError", "Username is empty");
+        }
+        if (isUsername || isConfirmEmpty || isMatch || bindingResult.hasErrors()) {
             Map<String, String> errors = getErrors(bindingResult);
-
             model.mergeAttributes(errors);
-
             return "registration";
         }
-
         if (!userService.addUser(user)) {
             model.addAttribute("usernameError", "User exists!");
             return "registration";
